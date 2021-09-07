@@ -1,0 +1,1622 @@
+<!DOCTYPE html >
+< html >
+  <头>
+    <脚本>
+      /**
+       * SCF_GATEWAY：SCF云函数网关地址
+       * SITE_NAME：站点名称
+       */
+      窗口。全局配置 =  {
+        SCF_GATEWAY : "//6.quhui137.workers.dev" ,
+        SITE_NAME：“FODI” ，
+        IS_CF :真,
+      } ;
+      if  ( window . GLOBAL_CONFIG . SCF_GATEWAY . indexOf ( "workers" )  ===  - 1 )  {
+        窗口。全局配置。SCF_GATEWAY  +=  "/fodi/" ;
+        窗口。全局配置。IS_CF  = 假；
+      }
+      // if (location.protocol === 'http:') {
+      // location.href = location.href.replace(/http/, 'https');
+      // }
+    </脚本>
+    <元 字符集=" utf-8 " />
+    <元
+      内容=“宽度=设备宽度，初始规模=1.0，最大规模=1.0，用户规模=无”
+      名称=“视口”
+    />
+    <脚本
+      类型=“模块”
+      src =" https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/ionicons/4.6.3/ionicons/ionicons.esm.js "
+    > </脚本>
+    <脚本
+      没有模块=“”
+      src =" https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/ionicons/4.6.3/ionicons/ionicons.js "
+    > </脚本>
+    < script  src =" //s0.pstatp.com/cdn/expire-1-M/marked/0.6.2/marked.min.js " > </ script >
+    < script  src =" //s0.pstatp.com/cdn/expire-1-M/highlight.js/9.15.6/highlight.min.js " > </ script >
+    <链接
+      href =" //s0.pstatp.com/cdn/expire-1-M/highlight.js/9.15.6/styles/github.min.css "
+      rel ="样式表"
+    />
+    <链接
+      href =" //s0.pstatp.com/cdn/expire-1-M/github-markdown-css/3.0.1/github-markdown.min.css "
+      rel ="样式表"
+    />
+    < script  src =" //s0.pstatp.com/cdn/expire-1-M/jquery/3.4.0/jquery.min.js " > </ script >
+    < script  src =" //s0.pstatp.com/cdn/expire-1-M/fancybox/3.5.7/jquery.fancybox.min.js " > </ script >
+    <链接
+      href =" //s0.pstatp.com/cdn/expire-1-M/fancybox/3.5.7/jquery.fancybox.min.css "
+      rel ="样式表"
+    />
+    <风格>
+      . sk折叠立方体{
+        边距： 20像素自动；
+        宽度： 40像素；
+        高度： 40像素；
+        位置：相对；
+        -webkit-transform ： rotateZ（45度）；
+        变换： rotateZ（45度）；
+      }
+
+      . sk折叠立方体。sk立方体{
+        浮动：左；
+        宽度： 50 %；
+        高度： 50 %；
+        位置：相对；
+        -webkit-transform ： 规模（1.1）；
+        -ms-transform ： 比例（1.1）；
+        变换： 比例（1.1）；
+      }
+      . sk折叠立方体。sk-cube : {之前
+        内容： “”；
+        位置：绝对；
+        顶部： 0；
+        左： 0；
+        宽度： 100 %；
+        高度： 100 %；
+        背景颜色： rgb ( 134 ,  134 ,  134 );
+        -webkit-animation : sk-foldCubeAngle 2.4 s无限线性两者；
+        动画： sk-foldCubeAngle 2.4 s无限线性两者；
+        -webkit-transform-origin ： 100 %  100 %；
+        -ms-transform-origin ： 100 %  100 %；
+        变换原点： 100 %  100 %；
+      }
+      . sk折叠立方体。sk-cube2 {
+        -webkit-transform ： 缩放（1.1）rotateZ（90度）；
+        变换： 缩放（1.1）rotateZ（90度）；
+      }
+      . sk折叠立方体。sk-cube3 {
+        -webkit-transform ： 缩放（1.1）rotateZ（180度）；
+        变换： 缩放（1.1）rotateZ（180度）；
+      }
+      . sk折叠立方体。sk-cube4 {
+        -webkit-transform ： 缩放（1.1）rotateZ（270度）；
+        变换： 缩放（1.1）rotateZ（270度）；
+      }
+      . sk折叠立方体。sk-cube2 : {之前
+        -webkit-animation-delay ： 0.3秒；
+        动画延迟： 0.3秒；
+      }
+      . sk折叠立方体。sk-cube3 : {之前
+        -webkit-animation-delay ： 0.6秒；
+        动画延迟： 0.6秒；
+      }
+      . sk折叠立方体。sk-cube4 : {之前
+        -webkit-animation-delay ： 0.9秒；
+        动画延迟： 0.9秒；
+      }
+      @-webkit-keyframes sk-foldCubeAngle {
+        0 % ,
+        10 % {
+          -webkit-transform ： 透视（140像素）rotateX（-180度）；
+          变换： 透视（140像素）rotateX（-180度）；
+          不透明度： 0；
+        }
+        25 % ,
+        75 % {
+          -webkit-transform ： 透视（140像素）rotateX（0度）；
+          变换： 透视（140像素）rotateX（0度）；
+          不透明度： 1；
+        }
+        90 %，
+        100% {
+          -webkit-transform ： 透视（140像素）rotateY（180度）；
+          变换： 透视（140像素）rotateY（180度）；
+          不透明度： 0；
+        }
+      }
+
+      @keyframes sk-foldCubeAngle {
+        0 % ,
+        10 % {
+          -webkit-transform ： 透视（140像素）rotateX（-180度）；
+          变换： 透视（140像素）rotateX（-180度）；
+          不透明度： 0；
+        }
+        25 % ,
+        75 % {
+          -webkit-transform ： 透视（140像素）rotateX（0度）；
+          变换： 透视（140像素）rotateX（0度）；
+          不透明度： 1；
+        }
+        90 %，
+        100% {
+          -webkit-transform ： 透视（140像素）rotateY（180度）；
+          变换： 透视（140像素）rotateY（180度）；
+          不透明度： 0；
+        }
+      }
+
+      . 密码包装{
+        显示：弹性；
+        对齐项目：居中；
+      }
+
+      . 密码{
+        边距： 0自动；
+        填充顶部： 1 em ;
+        显示：无；
+      }
+
+      . 密码 输入{
+        高度:  2 em ;
+        大纲：无；
+        边界：固体RGB（218 ， 215 ， 215）1个像素;
+      }
+
+      . 密码 按钮{
+        背景：白色；
+        高度:  2 em ;
+        大纲：无；
+        边界：固体RGB（218 ， 215 ， 215）1个像素;
+      }
+
+      . 密码 按钮：悬停{
+        颜色：白色；
+        背景： RGB（218 ， 215 ， 215）;
+      }
+
+      前 * {
+        font-family : Courier New;
+      }
+
+      . 预览{
+        显示：无；
+        字体大小： 0.8 em；
+      }
+
+      . 内容{
+        清楚：两者；
+        填充： 0  1 em ;
+        边距： 0自动；
+        /* 文本对齐：居中；*/
+      }
+
+      . 文件名{
+        行高:  1 em ;
+        填充： 1 em  1 em  0；
+        文本对齐：居中；
+        空白： nowrap；
+        溢出：隐藏；
+      }
+
+      . btn {
+        浮动：对；
+        文本对齐：居中；
+        边界：固体RGB（218 ， 215 ， 215）1个像素;
+        边界半径： 1 em；
+        边距： 1 em  0.2 em ;
+        宽度:  4 em ;
+        高度:  2 em ;
+        行高:  2 em ;
+        用户选择：无；
+        -moz-user-select :无;
+        -o-user-select :无;
+        -khtml-user-select :无;
+        -webkit-user-select :无;
+        -ms-user-select :无;
+      }
+
+      . btn ：悬停{
+        颜色：白色；
+        背景： RGB（218 ， 215 ， 215）;
+      }
+
+      . .btn . 下载{
+        边距右:  1 em ;
+      }
+
+      #返回箭头,
+      #向前箭头{
+        颜色:  RGB ( 218 ,  215 ,  215 );
+      }
+
+      . 加载包装{
+        显示：无；
+        位置：固定；
+        高度:  2 em ;
+        行高:  2 em ;
+        边距顶部： 0.5 em ;
+        宽度： 100 %；
+        z-索引： 1；
+      }
+
+      . 加载{
+        color: white;
+        background: rgb(218, 215, 215);
+        height: 100%;
+        width: 8em;
+        margin: 0 auto;
+        text-align: center;
+        border-radius: 1em;
+      }
+
+      ion-icon {
+        font-size: 1.5em;
+      }
+
+      * {
+        box-sizing: border-box;
+        font-family: serif;
+      }
+
+      .markdown-body {
+        最小宽度： 200像素；
+        边距： 0自动；
+        填充： 0.7 em  1 em ;
+        字体大小： 0.8 em；
+      }
+
+      . 降价主体 h1 ，
+      h2 ,
+      h3 ,
+      h4 ,
+      h5 ,
+      h6 {
+        边距顶部： 0；
+      }
+
+      . 降价主体 img {
+        最大宽度： 90 %；
+        最大高度： 800像素；
+        宽度：自动；
+        高度：自动；
+        显示：块；
+        边距： 0自动；
+      }
+
+      身体{
+        宽度： 100 %；
+        高度： 100 %；
+        边距： 0；
+        填充： 0；
+      }
+
+      . 标头包装{
+        位置：固定；
+        高度:  3 em ;
+        宽度： 100 %；
+        -moz-user-select :无;
+        -o-user-select :无;
+        -khtml-user-select :无;
+        -webkit-user-select :无;
+        -ms-user-select :无;
+        用户选择：无；
+      }
+
+      . 标题{
+        填充： 0  1.8 em  0  1 em ;
+        高度： 100 %；
+        显示：弹性；
+        对齐项目：居中；
+        边框底部：实心rgb ( 218 ,  215 ,  215 ) 1 px ;
+      }
+
+      . 标志{
+        右边距： 0.3 em ;
+      }
+
+      . 站点{
+        空白： nowrap；
+        /* 左边距：自动；
+                填充左：2em；*/
+      }
+
+      . 导航{
+        宽度： 100 %；
+        溢出：隐藏；
+        文本溢出：省略号；
+        空白： nowrap；
+      }
+
+      . 导航路径，
+      . 导航-arr {
+        字体大小： 1 em ;
+        高度： 1.5 EM ;
+        右边距： 0.3 em ;
+        溢出：隐藏；
+        文本溢出：省略号；
+        空白： nowrap；
+        光标：默认；
+      }
+
+      #主页：悬停，
+      . 导航路径：悬停，
+      . 树节点：悬停，
+      . 行。文件包装器：悬停{
+        颜色:  RGB ( 90 ,  101 ,  133 );
+        光标：指针；
+      }
+
+      . 容器{
+        位置：固定；
+        宽度： 100 %；
+        高度： 计算（100 %  -  3 em）；
+        边距顶部:  3 em ;
+      }
+
+      . 主要{
+        位置：相对；
+        高度： 100 %；
+        宽度： 100 %；
+      }
+
+      . 左{
+        位置：绝对；
+        /* 显示：内联网格；*/
+        宽度： 20 %；
+        高度： 100 %；
+        字体大小： 0.8 em；
+        溢出：滚动；
+      }
+
+      . 树节点包装器{
+        显示：表；
+        margin-left :  1.5 em ;
+      }
+
+      . 树节点{
+        显示：弹性；
+        对齐项目：居中；
+      }
+
+      . 树节点名称{
+        margin-left :  0.3 em ;
+        空白： nowrap；
+      }
+
+      . 对{
+        位置：绝对；
+        宽度： 80 %；
+        高度： 100 %；
+        左边距： 20 %；
+        溢出：滚动；
+      }
+
+      . 行{
+        高度： 2.5 EM ;
+        填充： 0  0.8 em  0  1 em ;
+        显示：弹性；
+        对齐项目：居中；
+        边框底部：实心rgb ( 218 ,  215 ,  215 ) 1 px ;
+      }
+
+      . 行。文件包装{
+        字体大小： 0.8 em；
+        填充： 0  1 em ;
+        高度:  2 em ;
+      }
+
+      . 文件{
+        宽度： 100 %；
+        显示：弹性；
+        对齐项目：居中；
+      }
+
+      . 姓名{
+        显示：弹性；
+        对齐项目：居中；
+        溢出：隐藏；
+        文本溢出：省略号；
+        空白： nowrap；
+        宽度： 70 %；
+        padding-left :  0.3 em ;
+      }
+
+      . 列表头。姓名{
+        宽度： 计算值（70 ％  +  1.1 EM）;
+        填充左： 0 ;
+      }
+
+      . 时间{
+        溢出：隐藏；
+        文本溢出：省略号；
+        空白： nowrap；
+        文本对齐：右；
+        宽度： 133像素；
+      }
+
+      . 大小{
+        溢出：隐藏；
+        文本溢出：省略号；
+        空白： nowrap；
+        左边距：自动；
+      }
+
+      @media屏幕和（最大宽度： 1000像素）{
+        . 左{
+          显示：无；
+        }
+
+        . 对{
+          宽度： 100 %；
+          左边距：初始；
+        }
+      }
+
+      @media屏幕和（最大宽度： 800像素）{
+        . 姓名{
+          宽度： 60 %；
+        }
+
+        . 列表头。姓名{
+          宽度： 计算值（60 ％  +  1.1 EM）;
+        }
+
+        . 文件名{
+          溢出-x ：滚动；
+          高度： 100 %；
+        }
+      }
+
+      @media屏幕和（最大宽度： 600像素）{
+        . 姓名{
+          宽度： 75 %；
+        }
+
+        . 时间{
+          显示：无；
+        }
+
+        . 标题{
+          填充： 0  0.3 em ;
+        }
+
+        . 行{
+          填充： 0  0.3 em ;
+        }
+
+        . 行。文件包装{
+          填充： 0  0.3 em ;
+          高度:  3 em ;
+        }
+
+        . 降价正文{
+          填充： 0.6 em  0.3 em ;
+        }
+
+        . 文件名{
+          填充： 1 em  0.3 em  0 ;
+        }
+
+        . 内容{
+          填充： 0  0.3 em ;
+        }
+
+        . .btn . 下载{
+          右边距： 0.3 em ;
+        }
+
+        . 标志{
+          宽度:  2 em ;
+          高度:  2 em ;
+        }
+      }
+    </风格>
+    <脚本>
+      函数 createCORSRequest （方法， 网址， 超时） {
+        let  xhr  =  new  XMLHttpRequest ( ) ;
+        如果 （“withCredentials” 在 XHR ） {
+          xhr . 打开（方法， 网址， 真）；
+        }  else  if  ( typeof  XDomainRequest  !==  "undefined" )  {
+          xhr  = 新的 XDomainRequest ( ) ;
+          xhr . 打开（方法， 网址）；
+        } 其他 {
+          xhr  = 空；
+        }
+        如果 ( xhr )  {
+          xhr . 超时 = 超时；
+        }
+        返回 xhr ;
+      }
+
+      函数 sendRequest （方法、 url 、 数据、 标题、 回调、 错误、 时间） {
+        让 xhr  =  createCORSRequest （方法， url ， 2500 ）；
+        xhr . onreadystatechange  =  ( )  =>  {
+          如果 （XHR 。readyState的 ==  4  &&  XHR 。状态 ==  200 ） {
+            回调( xhr . responseText ) ;
+          }
+        } ;
+        xhr . 超时 =  xhr 。onerror  =  ( )  =>  {
+          如果 （！次） {
+            次 =  0 ;
+          }
+          控制台。日志（{
+            网址：网址，
+            数据：数据，
+            次：次，
+          } ) ;
+          如果 (次 <  1 )  {
+            sendRequest ( method ,  url ,  data ,  headers ,  callback ,  error ,  times  +  1 ) ;
+          }  else  if  ( typeof  error  ===  "function" )  {
+            错误( ) ;
+          }
+        } ;
+        如果 （标题） {
+          为 （键 在 报头） {
+            如果 （报头。hasOwnProperty （键）） {
+              xhr . setRequestHeader ( key ,  headers [ key ] ) ;
+            }
+          }
+        }
+        如果 （数据） {
+          xhr . 发送（数据）；
+        } 其他 {
+          xhr . 发送( ) ;
+        }
+      }
+
+      函数 渲染页面（数据， 缓存） {
+        让 文件;
+        如果 （数据） {
+          文件 =  JSON 。解析（数据）；
+          窗口。文件缓存。设置（文件。父， 文件）；
+          预缓存（文件， 0 ）；
+        } 其他 {
+          文件 = 缓存；
+        }
+        如果 （文件。父 === 窗口。backFordwardCache 。当前） {
+          渲染路径（文件。父）；
+          如果 （文件。加密） {
+            处理加密文件夹（文件）；
+          } 其他 {
+            渲染文件列表（文件）；
+          }
+          渲染树节点（文件）；
+        }
+        如果 （文件。体。的getAttribute （“隐藏” ）） {
+          文件。身体。removeAttribute ( "隐藏" ) ;
+        }
+        文件。querySelector ( ".loading-wrapper" ) 。风格。显示 =  “无” ；
+      }
+
+      函数 渲染路径（路径） {
+        const  createPathSpan  =  ( text ,  path )  =>  {
+          让 pathSpan  = 文档。创建元素（“跨度” ）；
+          路径跨度。内部HTML  =
+            文本。长度 >  20 ? 文本。子串( 0 ,  20 )  +  ".." : text ;
+          路径跨度。className  =  text  ===  "/" ? "nav-arr" : "导航路径" ;
+          如果 （路径） {
+            addPathListener ( pathSpan ,  path ) ;
+          }
+          返回 路径跨度；
+        } ;
+
+        const 路径 = 路径。拆分（“/” ）；
+        让 pathSpanWrapper  = 文档。getElementById ( "路径" ) ;
+        pathSpanWrapper 。内部HTML  =  "" ;
+        pathSpanWrapper 。的appendChild （createPathSpan （窗口。API 。根））;
+        让 continualPath  =  "/" ;
+        for  (让 i  =  1 ;  i  < 路径。长度 -  1 ;  i ++ )  {
+          continualPath  += 路径[ i ] ;
+          pathSpanWrapper 。appendChild ( createPathSpan ( paths [ i ] ,  continualPath ) ) ;
+          pathSpanWrapper 。appendChild ( createPathSpan ( "/" ) ) ;
+          连续路径 +=  "/" ;
+        }
+        pathSpanWrapper 。的appendChild （createPathSpan （路径[路径。长度 -  1 ] ））;
+      }
+
+      函数 渲染文件列表（文件） {
+        switchRightDisplay ( ) ;
+
+        const  createFileWrapper  =  （类型、 名称、 时间、 大小、 路径、 url ） =>  {
+          让 fileWrapper  = 文档
+            . getElementById ( "file-wrapper-templete" )
+            . 内容。克隆节点（真）；
+          文件包装器。查询选择器（“离子图标” ）。setAttribute ( "名称" , 类型) ;
+          文件包装器。查询选择器（“.name” ）。内部HTML  = 名称；
+          文件包装器。查询选择器（“.time” ）。内部HTML  = 时间；
+          文件包装器。查询选择器（“.size” ）。内部HTML  = 大小；
+          添加文件列表行监听器(
+            文件包装器。querySelector ( ".row.file-wrapper" ) ,
+            路径，
+            网址，
+            尺寸
+          ) ;
+          返回文件 包装器；
+        } ;
+
+        const  formatDate  =  (日期)  =>  {
+          const  addZero  =  ( num )  =>  ( num  >  9 ? num : "0"  +  num ) ;
+          日期 = 新 日期（日期）；
+          常量 年 = 日期。getFullYear ( ) ;
+          常量 月 =  addZero （日期。得到月（） +  1 ）;
+          常量 天 =  addZero （日期。GETDATE （））;
+          常量 小时 =  addZero （日期。调用getHours （））;
+          常量 分钟 =  addZero （日期。getMinutes （））;
+          常量 第二 =  addZero （日期。getSeconds （））;
+          返回 “yyyy-MM-dd HH:mm:ss”
+            . 替换（“yyyy” ， 年份）
+            . 替换（“MM” ， 月）
+            . 替换（“dd” ， 天）
+            . 替换（“HH” ， 小时）
+            . 替换（“毫米” ， 分钟）
+            . 替换（“ss” ， 第二个）；
+        } ;
+
+        const  formatSize  =  (大小)  =>  {
+          让 计数 =  0 ;
+          而 （大小 > =  1024 ） {
+            大小 /=  1024 ;
+            计数++ ；
+          }
+          大小 = 大小。toFixed ( 2 ) ;
+          开关 （计数） {
+            案例 1：
+              大小 +=  "KB" ;
+              打破;
+            案例 2：
+              大小 +=  "MB" ;
+              打破;
+            案例 3：
+              大小 +=  " GB" ;
+              打破;
+            案例 4：
+              大小 +=  "TB" ;
+              打破;
+            案例 5：
+              尺寸 +=  "PB" ;
+              打破;
+            默认：
+              尺寸 +=  "B" ;
+          }
+          返回 大小；
+        } ;
+
+        让 fileList  = 文档。getElementById ( "文件列表" ) ;
+        文件列表。内部HTML  =  "" ;
+        文件。文件。forEach ( (文件)  =>  {
+          如果 （文件。名称。拆分（“。” ）。弹出（） ===  “md” ） {
+            如果 （文件。网址） {
+              渲染降价(
+                文件。父 +  （文件。父 ===  “/”？“”：“/” ） + 文件。姓名,
+                文件。网址
+              ) ;
+            }
+          }
+          如果 （文件。名称 ！==  “README.md” ） {
+            const 父 = 文件。父 === 窗口。API 。根？"" :文件。父母；
+            文件列表。附加子(
+              创建文件包装器（
+                文件。网址？“文件”：“文件夹” ，
+                文件。姓名,
+                formatDate （文件。时间），
+                格式大小（文件。大小），
+                父级 +  "/"  + 文件。姓名,
+                文件。网址
+              )
+            ) ;
+          }
+        } ) ;
+      }
+
+      异步 函数 renderTreeNode （文件） {
+        const  createTreeNodeWrapper  =  （数组， 类型， 名称， 路径） =>  {
+          让 treeNodeWrapper  = 文档
+            . getElementById ( "tree-node-wrapper-template" )
+            . 内容。克隆节点（真）；
+          让 图标 =  treeNodeWrapper 。querySelectorAll ( "离子图标" ) ;
+          图标[ 0 ] 。setAttribute ( "名称" , 数组) ;
+          图标[ 1 ] 。setAttribute ( "名称" , 类型) ;
+          树节点包装器。querySelector ( ".tree-node-name" ) 。内部文本 = 名称；
+          树节点包装器。appendNode  =  (节点)  =>
+            树节点包装器。querySelector ( ".tree-node-wrapper" ) 。追加（节点）；
+          添加树节点监听器(
+            树节点包装器。querySelector ( ".tree-node" ) ,
+            小路
+          ) ;
+          返回 treeNodeWrapper ；
+        } ;
+
+        const 路径 = 文件。父母。拆分（“/” ）；
+        让 绝对路径 =  (最大)  =>  {
+          让 绝对路径 =  "" ;
+          for  (让 j  =  1 ;  j  <= 最大值;  j ++ )  {
+            绝对 路径+=  "/"  + 路径[ j ] ;
+          }
+          返回 绝对路径；
+        } ;
+        让 maxIndex  = 路径。长度 -  1 ;
+        让 currentTreeNode  =  createTreeNodeWrapper (
+          "箭头下拉" ,
+          “文件夹打开” ，
+          路径[ maxIndex ] ,
+          绝对路径( maxIndex )
+        ) ;
+        文件。文件。forEach ( (文件)  =>  {
+          如果 （！文件。网址） {
+            当前树节点。追加节点(
+              createTreeNodeWrapper (
+                "箭头-dropright" ,
+                "文件夹" ,
+                文件。姓名,
+                文件。父级 +  "/"  + 文件。姓名
+              )
+            ) ;
+          }
+        } ) ;
+
+        for  (让 i  =  maxIndex  -  1 ;  i  >  0 ;  i -- )  {
+          const  currentTreeNodeParentAbsolutePath  =  absolutePath ( i ) ;
+          让 currentTreeNodeParent  =  createTreeNodeWrapper (
+            "箭头下拉" ,
+            "文件夹" ,
+            路径[ i ] ,
+            currentTreeNodeParentAbsolutePath
+          ) ;
+          让 缓存 = 窗口。文件缓存。获取（currentTreeNodeParentAbsolutePath ）；
+          如果 （缓存） {
+            缓存。文件。forEach ( (文件)  =>  {
+              如果 （！文件。网址） {
+                if  (文件。名称 === 路径[ i  +  1 ] )  {
+                  currentTreeNodeParent 。appendNode ( currentTreeNode ) ;
+                } 其他 {
+                  currentTreeNodeParent 。追加节点(
+                    createTreeNodeWrapper (
+                      "箭头-dropright" ,
+                      "文件夹" ,
+                      文件。姓名,
+                      currentTreeNodeParentAbsolutePath  +  "/"  + 文件。姓名
+                    )
+                  ) ;
+                }
+              }
+            } ) ;
+          } 其他 {
+            currentTreeNodeParent 。appendNode ( currentTreeNode ) ;
+          }
+          currentTreeNode  =  currentTreeNodeParent ;
+        }
+
+        const  treeRoot  = 文档。getElementById ( "树根" ) ;
+        树根。内部HTML  =  "" ;
+        const 缓存 = 窗口。文件缓存。得到（窗口。API 。根）;
+        const  currentNodeName  =
+          当前树节点。querySelector ( ".tree-node-name" ) 。内部文本；
+        如果 （缓存） {
+          缓存。文件。forEach ( (文件)  =>  {
+            如果 （！文件。网址） {
+              如果 （文件。名称 ===  currentNodeName ） {
+                树根。追加（当前树节点）；
+              } 其他 {
+                树根。附加(
+                  createTreeNodeWrapper (
+                    "箭头-dropright" ,
+                    "文件夹" ,
+                    文件。姓名,
+                    窗口。API 。根 + 文件。姓名
+                  )
+                ) ;
+              }
+            }
+          } ) ;
+        } 其他 {
+          树根。追加（当前树节点）；
+        }
+      }
+
+      异步 函数 renderMarkdown ( path ,  url )  {
+        const 渲染 =  (文本)  =>  {
+          让 标记文本；
+          试试 {
+            markedText  = 标记（文字， {
+              gfm :真的,
+              亮点：（代码， 郎， 回调） =>  {
+                返回 hljs 。突出显示（语言， 代码）。价值；
+              } ,
+            } ) ;
+          } 赶上 （e ） {
+            markedText  = 标记（文字， {
+              gfm :真的,
+              亮点：（代码， 郎， 回调） =>  {
+                返回 hljs 。突出显示（“bash” ， 代码）。价值；
+              } ,
+            } ) ;
+          }
+          如果 （
+            窗口。向后转发缓存。当前 +
+              ( window . backFordwardCache . current  ===  "/" ? "" : "/" )  +
+              “README.md”  ===
+            小路
+          )  {
+            如果 （！窗口。backFordwardCache 。预览） {
+              文件。getElementById （“自述” ）。innerHTML  = 标记文本;
+              文件。querySelector ( ".markdown-body" ) 。风格。显示 =  “块” ；
+            }
+          }  else  if  ( window . backFordwardCache . preview )  {
+            const  markdownBody  = 文档。创建元素（“div” ）；
+            降价正文。类列表。添加（“降价主体” ）；
+            降价正文。innerHTML  = 标记文本；
+            常量 内容 = 文档。querySelector ( ".content" ) ;
+            内容。内部HTML  =  "" ;
+            内容。appendChild ( markdownBody ) ;
+          }
+          让 缓存 = 窗口。文件缓存。获取（路径）；
+          如果 （！缓存 || 缓存 === 真） {
+            窗口。文件缓存。设置（路径， 文本）；
+          }
+        } ;
+
+        如果 （
+          窗口。向后转发缓存。当前 +
+            ( window . backFordwardCache . current  ===  "/" ? "" : "/" )  +
+            “README.md”  ===
+          小路
+        )  {
+          const 自述 文件= 文档。getElementById ( "readme" ) ;
+          如果 （！自述。querySelector （“.sk折叠立方体” ）） {
+            自述文件。内部HTML  =  "" ;
+            自述文件。附加子(
+              文档
+                . getElementById ( "loading-wrapper-templete" )
+                . 内容。克隆节点（真）
+            ) ;
+            文件。querySelector ( ".markdown-body" ) 。风格。显示 =  “块” ；
+          }
+        }
+
+        让 text  =  window 。文件缓存。获取（路径）；
+        如果 （文本 === 真） {
+          setTimeout ( ( )  =>  renderMarkdown ( path ,  url ) ,  200 ) ;
+          // 让 cacheWaitReadmeFetch = setInterval(() => {
+          // text = window.fileCache.get(path);
+          // if (typeof text === "object") {
+          // 渲染（文本，路径）；
+          // clearInterval(cacheWaitReadmeFetch);
+          // } else if (text === false) {
+          // clearInterval(cacheWaitReadmeFetch);
+          // }
+          // }, 100);
+        } 否则 如果 （文本） {
+          渲染（文本， 路径）；
+        } 其他 {
+          窗口。文件缓存。设置（路径， 真）；
+          发送请求(
+            "获取" ,
+            网址，
+            空，
+            空，
+            ( text )  =>  render ( text ,  path ) ,
+            ( )  => 窗口。文件缓存。设置（路径， 假）
+          ) ;
+        }
+      }
+
+      函数 handleEncryptedFolder （文件） {
+        switchRightDisplay ( "加密" ) ;
+        const 密码 = 文档。querySelector ( ".password" ) ;
+        常量 输入 = 密码。查询选择器（“输入” ）；
+        const 按钮 = 密码。查询选择器（“按钮” ）；
+        const  buttonParent  = 按钮。父元素；
+        const  buttonClone  = 按钮。克隆节点（真）；
+        按钮父级。replaceChild ( buttonClone ,  button ) ;
+        输入。placeholder  =  "请输入密码" ;
+        按钮克隆。addEventListener ( "click" ,  ( event )  =>  {
+          常量 密码 = 输入。价值；
+          如果 （！输入。值） {
+            返回;
+          }
+          输入。值 =  "" ;
+          输入。placeholder  =  "正在验证.." ;
+          发送请求(
+            窗口。API 。方法，
+            窗口。API 。网址，
+            窗口。API 。formatPayload ( files . parent ,  passwd ) ,
+            窗口。API 。标题，
+            （数据） =>  {
+              const  newFiles  =  JSON 。解析（数据）；
+              如果 （新文件。加密） {
+                输入。placeholder  =  "密码错误" ;
+              } 其他 {
+                窗口。文件缓存。设置（新文件。父，新 文件）；
+                fetchFileList （newFiles 。父）;
+              }
+            } ,
+            ( )  => 窗口。文件缓存。设置( newFiles . parent ,  false )
+          ) ;
+        } ) ;
+      }
+
+      函数 addPathListener ( elem ,  path )  {
+        元素。addEventListener ( "click" ,  ( event )  =>  {
+          fetchFileList （路径）；
+          switchBackForwardStatus （路径）；
+        } ) ;
+      }
+
+      函数 addTreeNodeListener ( elem ,  path )  {
+        元素。addEventListener ( "click" ,  ( event )  =>  {
+          fetchFileList （路径）；
+          switchBackForwardStatus （路径）；
+        } ) ;
+      }
+
+      函数 addFileListLineListener ( elem ,  path ,  url ,  size )  {
+        如果 （网址） {
+          元素。addEventListener ( "click" ,  ( event )  =>  {
+            窗口。向后转发缓存。预览 = 真;
+            const  previewHandler  =  {
+              copyTextContent：（源， 文本） =>  {
+                让 结果 = 假；
+                让 目标 = 文档。createElement ( "pre" ) ;
+                目标。风格。不透明度 =  “0” ；
+                目标。的textContent  = 文本 ||  来源。文本内容；
+                文件。身体。appendChild （目标）；
+                试试 {
+                  让 范围 = 文档。创建范围（）；
+                  范围。选择节点（目标）；
+                  窗口。获取选择（）。removeAllRanges ( ) ;
+                  窗口。获取选择（）。addRange (范围) ;
+                  文件。execCommand ( "复制" ) ;
+                  窗口。获取选择（）。removeAllRanges ( ) ;
+                  结果 = 真；
+                } 赶上 ( e )  { }
+                文件。身体。removeChild （目标）；
+                返回 结果；
+              } ,
+              的fileType：（后缀） =>  {
+                数组。原型。包含 = 功能 （搜索） {
+                  const 对象 = 这个;
+                  对于 （const的 键 在 对象） {
+                    如果 （对象。hasOwnProperty （键）） {
+                      如果 （评估（“/^”  + 搜索 +  “$/i” ）。测试（对象[键] ）） {
+                        返回 真；
+                      }
+                    }
+                  }
+                  返回 假；
+                } ;
+                如果 （
+                  [ "bmp" ,  "jpg" ,  "png" ,  "svg" ,  "webp" ,  "gif" ] . 包含（后缀）
+                )  {
+                  返回 “图像” ；
+                }  else  if  ( [ "mp3" ,  "flac" ,  "wav" ] . contains (后缀) )  {
+                  返回 “音频” ；
+                } 否则 如果 （
+                  [ “mp4” ， “avi” ， “mkv” ， “flv” ， “m3u8” ] 。包含（后缀）
+                )  {
+                  返回 “视频” ；
+                } 否则 如果 （
+                  [
+                    "txt" ,
+                    "js" ,
+                    "json" ,
+                    "css" ,
+                    "html" ,
+                    "爪哇" ,
+                    "c" ,
+                    "cpp" ,
+                    "php" ,
+                    "cmd" ,
+                    "ps1" ,
+                    "蝙蝠" ,
+                    "sh" ,
+                    "py" ,
+                    “走” ，
+                    "asp" ,
+                  ] 。包含（后缀）
+                )  {
+                  返回 “文本” ；
+                } 否则 如果 （
+                  [
+                    "文档" ,
+                    "docx" ,
+                    "ppt" ,
+                    "pptx" ,
+                    "xls" ,
+                    "xlsx" ,
+                    "mp" ,
+                    "rtf" ,
+                    "vsd" ,
+                    "vsdx" ,
+                  ] 。包含（后缀）
+                )  {
+                  返回 “办公室” ；
+                }  else  if  ( [ "md" ] . contains (后缀) )  {
+                  返回 “降价” ；
+                }
+              } ,
+              loadResource：（资源， 回调） =>  {
+                让 输入;
+                开关 （资源。拆分（“。” ）。弹出（）） {
+                  案例 “css”：
+                    类型 =  “链接” ；
+                    打破;
+                  案例 “js”：
+                    类型 =  “脚本” ；
+                    打破;
+                }
+                让 元素 = 文档。创建元素（类型）；
+                让 加载 =  false ;
+                if  ( typeof  callback  ===  "function" )  {
+                  元素。加载 = 元素。onreadystatechange  =  ( )  =>  {
+                    如果 （
+                      ！加载 &&
+                      （！元素。readyState的 ||
+                        /加载| 完成/。试验（元件。readyState的））
+                    )  {
+                      元素。加载 = 元素。onreadystatechange  =  null ;
+                      加载 = 真;
+                      回调( ) ;
+                    }
+                  } ;
+                }
+                如果 （类型 ===  “链接” ） {
+                  元素。href  = 资源；
+                  元素。rel  =  "样式表" ;
+                } 其他 {
+                  元素。src  = 资源；
+                }
+                文件。getElementsByTagName ( "head" ) [ 0 ] 。appendChild (元素) ;
+              } ,
+
+              createDplayer：（视频， 类型， ELEM ） =>  {
+                const  host  =  "//s0.pstatp.com/cdn/expire-1-M" ;
+                常量 资源 =  [
+                  "/dplayer/1.25.0/DPlayer.min.css" ,
+                  "/dplayer/1.25.0/DPlayer.min.js" ,
+                  "/hls.js/0.12.4/hls.light.min.js" ,
+                  "/flv.js/1.5.0/flv.min.js" ,
+                ] ;
+                让 unloadedResourceCount  =  resources 。长度；
+                资源。forEach ( (资源)  =>  {
+                  预览处理程序。loadResource (主机 + 资源,  ( )  =>  {
+                    如果 （！-- unloadedResourceCount ） {
+                      让 选项 =  {
+                        网址：视频，
+                      } ;
+                      如果 （类型 ===  “flv” ） {
+                        选项。类型 =  "flv" ;
+                      }
+                      新的 DPlayer ( {
+                        容器: elem ,
+                        截图：真实，
+                        视频：选项，
+                      } ) ;
+                    }
+                  } ) ;
+                } ) ;
+              } ,
+            } ;
+
+            const 后缀 = 路径。拆分（“。” ）。流行音乐( ) ;
+            让 内容 = 文档。querySelector ( ".content" ) ;
+
+            内容。附加子(
+              文档
+                . getElementById ( "loading-wrapper-templete" )
+                . 内容。克隆节点（真）
+            ) ;
+
+            让 contentType  =  previewHandler 。文件类型（后缀）；
+            开关 （内容类型） {
+              案例 “图像”：
+                让 img  = 新 图片( ) ;
+                图像。风格。maxWidth  =  "100%" ;
+                图像。源代码 = 网址；
+                让 花式 = 文档。createElement ( "a" ) ;
+                花哨的。setAttribute ( "data-fancybox" ,  "image" ) ;
+                花哨的。href  =  img 。源代码；
+                花哨的。追加( img ) ;
+                内容。内部HTML  =  "" ;
+                内容。追加（花哨）；
+                打破;
+              案例 “音频”：
+                让 音频 = 新 音频（）；
+                音频。风格。大纲 =  “无” ；
+                音频。预加载 =  “自动” ；
+                音频。控制 =  “控制” ；
+                音频。风格。宽度 =  "100%" ;
+                音频。源代码 = 网址；
+                内容。内部HTML  =  "" ;
+                内容。追加（音频）；
+                打破;
+              案例 “视频”：
+                让 视频 = 文档。创建元素（“div” ）；
+                预览处理程序。createDplayer （网址， 后缀， 视频）；
+                内容。内部HTML  =  "" ;
+                内容。追加（视频）；
+                打破;
+              案例 “文本”：
+                sendRequest ( "GET" ,  url ,  null ,  null ,  (数据)  =>  {
+                  让 pre  = 文档。createElement ( "pre" ) ;
+                  让 代码 = 文档。createElement ( "代码" ) ;
+                  预。追加（代码）；
+                  预。风格。背景 =  "rgb(245,245,245)" ;
+                  预。样式[ “溢出-x” ]  =  “滚动” ；
+                  预。类列表。添加（后缀）；
+                  // content.style.textAlign = "initial";
+                  内容。内部HTML  =  "" ;
+                  内容。追加（前）；
+                  代码。文本内容 = 数据;
+                  如果 （
+                    大小。indexOf ( " B" )  >=  0  ||
+                    ( size . indexOf ( " KB" )  &&  size . split ( " " ) [ 0 ]  <  100 )
+                  )  {
+                    .hjs . 高亮块（前）；
+                  }
+                } ) ;
+                打破;
+              案例 “降价”：
+                renderMarkdown (路径,  url ) ;
+                打破;
+              案例 “办公室”：
+                const  officeOnline  =
+                  “//view.officeapps.live.com/op/view.aspx?src=”  +
+                  encodeURIComponent ( url ) ;
+                让 div  = 文档。创建元素（“div” ）；
+                分区。风格。lineHeight  =  "2em" ;
+                分区。风格。背景 =  "rgba(218, 215, 215, 0.21)" ;
+                分区。风格。webkitTapHighlightColor  =  "rgba(0, 0, 0, 0)" ;
+                分区。风格。光标 =  "指针" ;
+                分区。风格。textAlign  =  "居中" ;
+                分区。innerHTML  =  "新窗口打开" ;
+                分区。addEventListener ( "click" ,  ( )  =>  window . open ( officeOnline ) ) ;
+                内容。内部HTML  =  "" ;
+                内容。appendChild ( div ) ;
+                如果 （文档。正文。客户端宽度 > =  480 ） {
+                  让 iframe  = 文档。createElement ( "iframe" ) ;
+                  框架。宽度 =  "100%" ;
+                  框架。风格。高度 =  "41em" ;
+                  框架。风格。边界 =  “0” ；
+                  框架。src  = 办公室在线；
+                  内容。appendChild ( iframe ) ;
+                }
+                打破;
+              默认：
+                让 textWrapper  = 文档。创建元素（“div” ）；
+                文本包装器。风格。textAlign  =  "居中" ;
+                文本包装器。innerHTML  =  "该文件不支持预览" ;
+                内容。内部HTML  =  "" ;
+                内容。appendChild ( textWrapper ) ;
+                打破;
+            }
+            文件。querySelector ( ".file-name" ) 。内部HTML  = 路径；
+            文档
+              . 查询选择器（“.btn.download” ）
+              . 的addEventListener （“点击” ， （） =>  （位置。HREF  =  URL ））;
+            文档
+              . 查询选择器（“.btn.quote” ）
+              . addEventListener ( "click" ,  ( event )  =>  {
+                预览处理程序。复制文本内容(
+                  空，
+                  窗口。API 。url  +  "?file="  +  encodeURI ( path )
+                ) ;
+                const  btn  = 文档。查询选择器（“.btn.quote” ）；
+                .btn . innerHTML  =  "已复制" ;
+                的setTimeout （（） =>  （BTN 。innerHTML的 =  “引用” ）， 250 ）;
+              } ) ;
+            文档
+              . 查询选择器（“.btn.share” ）
+              . addEventListener ( "click" ,  ( event )  =>  {
+                const  sharePath  =  ( )  =>  {
+                  让 arr  = 窗口。向后转发缓存。当前. 拆分（“/” ）；
+                  让 r  =  "" ;
+                  对于 （让 我 =  1 ; 我 <  ARR 。长度; 我++ ） {
+                    r += "/" + arr[i];
+                  }
+                  return r;
+                };
+                previewHandler.copyTextContent(
+                  null,
+                  window.location.origin +
+                    window.location.pathname +
+                    "?path=" +
+                    encodeURI(sharePath())
+                );
+                const btn = document.querySelector(".btn.share");
+                btn.innerHTML = "已复制";
+                setTimeout(() => (btn.innerHTML = "分享"), 250);
+              });
+            switchRightDisplay("preview");
+
+            if (contentType !== "video") return;
+
+            let start = null;
+            let right = document.querySelector(".right");
+            const scrollToBottom = (timestamp) => {
+              if (!start) start = timestamp;
+              let progress = timestamp - start;
+              let last = right.scrollTop;
+              right.scrollTo(0, right.scrollTop + 14);
+              if (right.scrollTop !== last && progress < 1000 * 2) {
+                window.requestAnimationFrame(scrollToBottom);
+              }
+            };
+            window.requestAnimationFrame(scrollToBottom);
+          });
+        } else {
+          elem.addEventListener("click", (event) => {
+            fetchFileList(path);
+            switchBackForwardStatus(path);
+          });
+        }
+      }
+
+      function addBackForwardListener() {
+        document.getElementById("arrow-back").addEventListener("click", back);
+        document
+          .getElementById("arrow-forward")
+          .addEventListener("click", forward);
+        document.querySelector("#main-page").addEventListener("click", () => {
+          fetchFileList(window.api.root);
+          switchBackForwardStatus(window.api.root);
+        });
+      }
+
+      function switchRightDisplay(display) {
+        if (display === "preview") {
+          document.querySelector(".list-header").style.display = "none";
+          document.querySelector("#file-list").style.display = "none";
+          document.querySelector(".markdown-body").style.display = "none";
+          document.querySelector(".password").style.display = "none";
+          document.querySelector(".preview").style.display = "initial";
+        } else if (display === "encrypted") {
+          document.querySelector(".list-header").style.display = "none";
+          document.querySelector("#file-list").style.display = "none";
+          document.querySelector(".markdown-body").style.display = "none";
+          document.querySelector(".preview").style.display = "none";
+          document.querySelector(".password").style.display = "initial";
+          document.querySelector("#readme").innerHTML = "";
+          let content = document.querySelector(".preview .content");
+          if (content) {
+            document.querySelector(".preview .content").innerHTML = "";
+          }
+        } else {
+          document.querySelector(".list-header").style.display = "initial";
+          document.querySelector("#file-list").style.display = "initial";
+          document.querySelector(".markdown-body").style.display = "none";
+          document.querySelector(".preview").style.display = "none";
+          document.querySelector(".password").style.display = "none";
+          document.querySelector("#readme").innerHTML = "";
+          let content = document.querySelector(".preview .content");
+          if (content) {
+            document.querySelector(".preview .content").innerHTML = "";
+          }
+        }
+      }
+
+      function switchBackForwardStatus(path) {
+        if (path) {
+          window.backFordwardCache.deepest = path;
+        }
+        if (
+          window.backFordwardCache.root !== window.backFordwardCache.current
+        ) {
+          window.backFordwardCache.backable = true;
+          document.getElementById("arrow-back").style.color = "black";
+        } else {
+          window.backFordwardCache.backable = false;
+          document.getElementById("arrow-back").style.color =
+            "rgb(218, 215, 215)";
+        }
+        if (
+          window.backFordwardCache.deepest !== window.backFordwardCache.current
+        ) {
+          window.backFordwardCache.forwardable = true;
+          document.getElementById("arrow-forward").style.color = "black";
+        } else {
+          window.backFordwardCache.forwardable = false;
+          document.getElementById("arrow-forward").style.color =
+            "rgb(218, 215, 215)";
+        }
+      }
+
+      function back() {
+        if (!window.backFordwardCache.backable) {
+          return;
+        }
+        if (window.backFordwardCache.preview) {
+          fetchFileList(window.backFordwardCache.current);
+        } else {
+          let former = (() => {
+            let formerEndIndex =
+              window.backFordwardCache.current.lastIndexOf("/");
+            return window.backFordwardCache.current.substring(
+              0,
+              formerEndIndex
+            );
+          })();
+          former = former || window.api.root;
+          fetchFileList(former);
+          switchBackForwardStatus();
+        }
+        // console.log(window.backFordwardCache);
+      }
+
+      function forward() {
+        if (!window.backFordwardCache.forwardable) {
+          return;
+        }
+        const current =
+          window.backFordwardCache.current === window.api.root
+            ? ""
+            : window.backFordwardCache.current;
+        const subLength = current ? current.length : 0;
+        const later =
+          current +
+          "/" +
+          window.backFordwardCache.deepest.substring(subLength).split("/")[1];
+        fetchFileList(later);
+        switchBackForwardStatus();
+        // console.log(window.backFordwardCache);
+      }
+
+      async function preCache(files, level) {
+        if (level > 1) return;
+        files.files.forEach((file) => {
+          const parent = files.parent === "/" ? "" : files.parent;
+          const path = parent + "/" + file.name;
+          if (!file.url) {
+            // console.log('caching ' + path + ', level ' + level);
+            window.fileCache.set(path, true);
+            sendRequest(
+              window.api.method,
+              window.api.url,
+              window.api.formatPayload(path),
+              window.api.headers,
+              (data) => {
+                const files = JSON.parse(data);
+                window.fileCache.set(path, files);
+                preCache(files, level + 1);
+              },
+              () => window.fileCache.set(path, false)
+            );
+          } else if (file.name.split(".").pop() === "md") {
+            // console.log('caching ' + path + ', level ' + level);
+            window.fileCache.set(path, true);
+            sendRequest(
+              "GET",
+              file.url,
+              null,
+              null,
+              (text) => window.fileCache.set(path, text),
+              () => window.fileCache.set(path, false)
+            );
+          }
+        });
+      }
+
+      async function preCacheCheck(cache, path) {
+        cache.files.forEach((file) => {
+          const prefix = path === window.api.root ? "" : path;
+          const nextPath = prefix + "/" + file.name;
+          const pathCache = window.fileCache.get(nextPath);
+          if (!file.url) {
+            if (!pathCache) {
+              // console.log('inner caching ' + nextPath);
+              window.fileCache.set(nextPath, true);
+              sendRequest(
+                window.api.method,
+                window.api.url,
+                window.api.formatPayload(nextPath),
+                window.api.headers,
+                (data) => {
+                  const files = JSON.parse(data);
+                  window.fileCache.set(nextPath, files);
+                  preCache(files, 0);
+                },
+                () => window.fileCache.set(nextPath, false)
+              );
+            } else if (pathCache.files) {
+              preCacheCheck(pathCache, nextPath);
+            }
+          } else if (file.name.split(".").pop() === "md") {
+            if (!pathCache && pathCache !== true) {
+              // console.log('inner caching ' + nextPath);
+              window.fileCache.set(nextPath, true);
+              sendRequest(
+                "GET",
+                file.url,
+                null,
+                null,
+                (text) => window.fileCache.set(nextPath, text),
+                () => window.fileCache.set(nextPath, false)
+              );
+            }
+          }
+        });
+      }
+
+      function fetchFileList(path) {
+        // console.log('fetching ' + path);
+        let loading = document.querySelector(".loading-wrapper");
+        loading.style.display = "initial";
+        window.backFordwardCache.preview = false;
+        window.backFordwardCache.current = path;
+
+        let cache = window.fileCache.get(path);
+        if (cache === true) {
+          setTimeout(() => fetchFileList(path), 200);
+        } else if (cache) {
+          renderPage(null, cache);
+          preCacheCheck(cache, path);
+        } else {
+          window.fileCache.set(path, true);
+          sendRequest(
+            window.api.method,
+            window.api.url,
+            window.api.formatPayload(path),
+            window.api.headers,
+            renderPage,
+            () => {
+              window.fileCache.set(path, false);
+              const loadingText = loading.querySelector(".loading");
+              loadingText.innerText = "Failed!";
+              setTimeout(() => {
+                loading.style.display = "none";
+                loadingText.innerText = "Loading..";
+              }, 2000);
+            }
+          );
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        document.title = window.GLOBAL_CONFIG.SITE_NAME;
+        document.querySelector(".site").textContent =
+          window.GLOBAL_CONFIG.SITE_NAME;
+        window.api = {
+          root: "/",
+          url: window.GLOBAL_CONFIG.SCF_GATEWAY,
+          method: "POST",
+          formatPayload: (path, passwd) => {
+            return (
+              "?path=" +
+              encodeURIComponent(path) +
+              "&encrypted=" +
+              window.api.accessToken.encrypted +
+              "&plain=" +
+              window.api.accessToken.plain +
+              "&passwd=" +
+              passwd
+            );
+          },
+          headers: {
+            "Content-type": "application/x-www-form-urlencoded",
+          },
+        };
+        window.backFordwardCache = {
+          root: window.api.root,
+          deepest: window.api.root,
+          current: window.api.root,
+          backable: false,
+          forwardable: false,
+          preview: false,
+        };
+        window.fileCache = new Map();
+        const initialPath =
+          new URLSearchParams(window.location.search).get("path") ||
+          window.api.root;
+        if (window.GLOBAL_CONFIG.IS_CF) {
+          window.api.accessToken = {
+            encrypted: "",
+            plain: "",
+          };
+          fetchFileList(initialPath);
+          addBackForwardListener();
+        } else {
+          sendRequest(
+            window.api.method,
+            window.api.url + "?accessToken",
+            null,
+            window.api.headers,
+            (data) => {
+              const accessToken = JSON.parse(data);
+              window.api.accessToken = {
+                encrypted: accessToken.encrypted,
+                plain: accessToken.plain,
+              };
+              fetchFileList(initialPath);
+              addBackForwardListener();
+            }
+          );
+        }
+      });
+    </script>
+  </head>
+  <body>
+    <template id="tree-node-wrapper-template">
+      <div class="tree-node-wrapper">
+        <div class="tree-node">
+          <ion-icon></ion-icon>
+          <ion-icon></ion-icon>
+          <div class="tree-node-name"></div>
+        </div>
+      </div>
+    </template>
+    <template id="file-wrapper-templete">
+      <div class="row file-wrapper">
+        <div class="file">
+          <ion-icon></ion-icon>
+          <span class="name"></span>
+          <span class="time"></span>
+          <span class="size"></span>
+        </div>
+      </div>
+    </template>
+    <template id="loading-wrapper-templete">
+      <div class="sk-folding-cube">
+        <div class="sk-cube1 sk-cube"></div>
+        <div class="sk-cube2 sk-cube"></div>
+        <div class="sk-cube4 sk-cube"></div>
+        <div class="sk-cube3 sk-cube"></div>
+      </div>
+    </template>
+    <div class="loading-wrapper">
+      <div class="loading">Loading...</div>
+    </div>
+    <div class="header-wrapper">
+      <div class="header">
+        <ion-icon id="arrow-back" class="logo" name="arrow-back"></ion-icon>
+        <ion-icon
+          id="arrow-forward"
+          class="logo"
+          name="arrow-forward"
+        ></ion-icon>
+        <ion-icon id="main-page" class="logo" name="folder"></ion-icon>
+        <div class="nav">
+          <span id="path"> </span>
+        </div>
+        <span class="site" id="nav-site">ONEDRIVE</span>
+      </div>
+    </div>
+    <div class="container">
+      <div class="main">
+        <div class="left">
+          <div id="tree-root"></div>
+        </div>
+        <div class="right">
+          <div class="list-header">
+            <div class="row">
+              <div class="file">
+                <span class="name">ITEMS</span>
+                <span class="time">TIME</span>
+                <span class="size">SIZE</span>
+              </div>
+            </div>
+          </div>
+          <div id="file-list"></div>
+          <div class="markdown-body">
+            <div id="readme"></div>
+          </div>
+          <div class="preview">
+            <div class="info">
+              <div class="file-name"></div>
+              <div class="btn download">下载</div>
+              <div class="btn quote">引用</div>
+              <div class="btn share">分享</div>
+            </div>
+            <div class="content"></div>
+          </div>
+          <div class="password-wrapper">
+            <div class="password">
+              <input type="password" />
+              <button>提交</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
